@@ -2,3 +2,5 @@
 *.pem
 *.p12
 *.cer
+/testca/
+/.idea/
