@@ -1,0 +1,22 @@
+# Copyright VMware, Inc.
+# SPDX-License-Identifier: APACHE-2.0
+
+version: '2'
+
+services:
+  rabbitmq:
+    image: docker.io/bitnami/rabbitmq:3.12
+    ports:
+      - '5671:5671'
+      - '15671:15671'
+    env_file:
+      - .env
+    volumes:
+      - 'rabbitmq_data:/bitnami/rabbitmq/mnesia'
+      - ./tls/certs/ca_certificate.pem:/etc/ssl/certs/ca_certificate.pem
+      - ./tls/certs/server_certificate.pem:/etc/ssl/certs/server_certificate.pem
+      - ./tls/private/private_key.pem:/etc/ssl/private_key.pem
+      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+volumes:
+  rabbitmq_data:
+    driver: local
